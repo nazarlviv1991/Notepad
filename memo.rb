@@ -1,10 +1,14 @@
 class Memo < Post
 
+  def initialize
+    super
+  end
+
   def read_from_console
-    puts "Ya zberezhu vse shcho ti napishesh doryadka \"end\" y fail"
+    puts "Ya zberezhu vse shcho ti napishesh do ryadka \"end\" y fail"
     line = nil
 
-    while line != "end" do
+    until line == "end"
       line = STDIN.gets.chomp
       @text << line
     end
@@ -23,4 +27,24 @@ class Memo < Post
 
     puts "Vash zapis zberezeniy"
   end
+
+  def to_db_hash
+    return super.merge(
+      {
+        "text" => @text.join("\n\r")
+      }
+    )
+  end
+
+  def load_data(data_hash)
+    super(data_hash)
+    @url = data_hash["text"].split("\n\r")
+  end
+
+  def to_strings
+
+    time_string = "Создано: #{@created_at.strftime('%Y.%m.%d, %H:%M:%S')}\n\r"
+    return @text.unshift(time_string)
+  end
+
 end
