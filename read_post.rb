@@ -14,14 +14,14 @@ OptionParser.new do |opt|
     exit
   end
 
-  opt.on("--type POST_TYPE", "Yakiy tip postiv pokazati (po zamovchuvanu lubiy)") {|o| options[:type] = o}
-  opt.on("--id POST_ID", "Yakshcho zadaniy id - pokazuem tilki cei post") {|o| options[:id] = o}
-  opt.on("--limit NUMBER", "Skilki ostanih postiv pokazati (po zamovchuvanu vsi)") {|o| options[:limit] = o}
+  opt.on("--type POST_TYPE", "Yakiy tip postiv pokazati (po zamovchuvanu lubiy)") { |o| options[:type] = o }
+  opt.on("--id POST_ID", "Yakshcho zadaniy id - pokazuem tilki cei post") { |o| options[:id] = o }
+  opt.on("--limit NUMBER", "Skilki ostanih postiv pokazati (po zamovchuvanu vsi)") { |o| options[:limit] = o }
 end.parse!
 
-result = Post.find(options[:limit], options[:type], options[:id])
+if !options[:id].nil?
+  result = Post.find_by_id(options[:id])
 
-if result.is_a? Post
   puts "Zapis #{result.class.name}, id = #{options[:id]}"
 
   result.to_strings.each do |line|
@@ -29,6 +29,8 @@ if result.is_a? Post
   end
 
 else
+  result = Post.find_all(options[:limit], options[:type])
+
   print "| id\t| @type\t| @created_at\t\t\t| @text \t\t\t| @url\t\t| @due_date \t "
 
   result.each do |row|

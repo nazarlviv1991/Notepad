@@ -1,4 +1,3 @@
-
 require_relative 'post'
 require_relative 'memo'
 require_relative 'link'
@@ -8,7 +7,7 @@ puts "Privit, ya tviy bloknot!"
 puts "Shcho hochete zapisati v bloknot?"
 
 choices = Post.post_types.keys
-choice  = -1
+choice = -1
 
 until choice >= 0 && choice < choices.size
 

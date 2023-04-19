@@ -38,13 +38,13 @@ class Memo < Post
 
   def load_data(data_hash)
     super(data_hash)
-    @url = data_hash["text"].split("\n\r")
+    @text = data_hash["text"].split("\n\r")
   end
 
   def to_strings
 
-    time_string = "Создано: #{@created_at.strftime('%Y.%m.%d, %H:%M:%S')}\n\r"
-    return @text.unshift(time_string)
+    time_string = "Stvoreno: #{@created_at.strftime('%Y.%m.%d, %H:%M:%S')}\n\r"
+    @text.unshift(time_string)
   end
 
 end

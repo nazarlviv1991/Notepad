@@ -25,8 +25,8 @@ class Link < Post
     puts "Vasha silka zberezena"
   end
   def to_strings
-    time_string = "Создано: #{@created_at.strftime('%Y.%m.%d, %H:%M:%S')} \n\r"
-    return [@url, @text, time_string]
+    time_string = "Stvoreno: #{@created_at.strftime('%Y.%m.%d, %H:%M:%S')} \n\r"
+    [@url, @text, time_string]
   end
 
   def to_db_hash
@@ -39,8 +39,9 @@ class Link < Post
   end
 
   def load_data(data_hash)
-    super(data_hash)
+    super
     @url = data_hash["url"]
+    # @text = data_hash["text"].split("\n\r")
   end
 end
 
